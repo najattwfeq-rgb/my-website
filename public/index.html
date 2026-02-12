@@ -9,7 +9,6 @@
     
     <style>
         :root {
-            /* الألوان الأساسية */
             --primary-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
             --hover-gradient: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
             --primary-color: #2563EB;
@@ -19,243 +18,111 @@
             --card-bg: #FFFFFF;
         }
 
-        body { 
-            margin: 0; 
-            font-family: 'Tajawal', sans-serif; 
-            background-color: var(--bg-color); 
-            color: var(--dark-text); 
-            overflow-x: hidden; 
-        }
-        
+        body { margin: 0; font-family: 'Tajawal', sans-serif; background-color: var(--bg-color); color: var(--dark-text); overflow-x: hidden; }
         a { text-decoration: none; }
 
-        /* --- 1. الناف بار (Navbar) --- */
+        /* Navbar */
         nav {
-            background: rgba(255, 255, 255, 0.85); /* شفافية */
-            backdrop-filter: blur(12px); /* تأثير الزجاج */
-            padding: 15px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
-            position: sticky; top: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.5);
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03); position: sticky; top: 0; z-index: 1000;
         }
-
         .logo { 
-            font-weight: 800; font-size: 24px; 
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: 800; font-size: 24px; background: var(--primary-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             display: flex; align-items: center; gap: 10px;
         }
         .logo i { -webkit-text-fill-color: initial; color: #2563EB; }
+        .nav-links { display: flex; align-items: center; gap: 10px; }
 
-        .nav-links { display: flex; align-items: center; gap: 15px; }
-
-        .nav-link { 
-            color: var(--dark-text); font-weight: 600; transition: 0.3s; font-size: 15px; position: relative;
-        }
-        .nav-link:hover { color: var(--primary-color); }
-
-        /* --- 2. نظام الأزرار الموحد (Buttons System) --- */
+        /* --- ✅ تعديل الأزرار لتكون موحدة (كبسولة) --- */
         .btn {
-            padding: 12px 28px; 
-            border-radius: 50px; /* شكل الكبسولة */
-            font-weight: 700; 
-            font-size: 15px;
-            transition: all 0.3s ease;
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px; 
-            cursor: pointer; border: none; text-align: center;
+            padding: 10px 24px; border-radius: 50px; font-weight: 700; font-size: 14px; transition: all 0.3s ease;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; border: none;
         }
+        /* زر أساسي (ممتلئ) */
+        .btn-main { background: var(--primary-gradient); color: white; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
+        .btn-main:hover { background: var(--hover-gradient); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4); }
+        
+        /* زر ثانوي (إطار فقط) */
+        .btn-outline { background: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); }
+        .btn-outline:hover { background: var(--primary-color); color: white; transform: translateY(-2px); }
 
-        /* الزر الأساسي (Primary) - تدرج لوني */
-        .btn-primary {
-            background: var(--primary-gradient);
-            color: white;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-        }
-        .btn-primary:hover {
-            background: var(--hover-gradient);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
-        }
-
-        /* الزر الثانوي (Secondary) - إطار ملون */
-        .btn-outline {
-            background: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color); /* إطار واضح */
-        }
-        .btn-outline:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
-        }
-
-        /* --- 3. الهيرو سكشن (Hero) --- */
+        /* Hero */
         header {
             padding: 130px 20px 100px; text-align: center;
-            /* خلفية هادية جداً */
             background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 50%),
                         radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.08), transparent 50%);
         }
-
         h1 { font-size: 3.5rem; margin: 0 0 25px; line-height: 1.2; font-weight: 900; }
-        h1 span {
-            background: var(--primary-gradient);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc {
-            font-size: 1.25rem; color: var(--light-text); max-width: 700px; margin: 0 auto 40px; line-height: 1.8;
-        }
-
+        h1 span { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-desc { font-size: 1.25rem; color: var(--light-text); max-width: 700px; margin: 0 auto 40px; line-height: 1.8; }
         .hero-btns { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
-        /* --- 4. قسم الخدمات (Services) --- */
+        /* Services */
         .features { padding: 100px 5%; background: white; }
         .section-header { text-align: center; margin-bottom: 70px; }
-        .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; font-weight: 800; }
-        .section-header p { color: var(--light-text); font-size: 1.1rem; }
-        
-        .grid {
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* كروت أعرض شوية */
-            gap: 30px;
-            max-width: 1200px; margin: 0 auto;
-        }
-
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
         .card {
             background: var(--card-bg); padding: 40px 30px; border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
-            border: 1px solid #F1F5F9;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03); border: 1px solid #F1F5F9;
             transition: 0.4s; text-align: center; position: relative; overflow: hidden;
         }
-        
-        .card:hover { 
-            transform: translateY(-10px); 
-            border-color: #E0E7FF;
-            box-shadow: 0 20px 50px rgba(37, 99, 235, 0.1); 
-        }
-
+        .card:hover { transform: translateY(-10px); border-color: #E0E7FF; box-shadow: 0 20px 50px rgba(37, 99, 235, 0.1); }
         .icon-circle {
-            width: 75px; height: 75px; margin: 0 auto 25px;
-            background: #EFF6FF; color: var(--primary-color);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 30px; transition: 0.4s;
+            width: 75px; height: 75px; margin: 0 auto 25px; background: #EFF6FF; color: var(--primary-color);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; transition: 0.4s;
         }
-        /* تأثير عند الوقوف على الكارت */
-        .card:hover .icon-circle {
-            background: var(--primary-gradient); color: white; transform: scale(1.1) rotate(5deg);
-        }
-
+        .card:hover .icon-circle { background: var(--primary-gradient); color: white; transform: scale(1.1) rotate(5deg); }
         .card h3 { margin: 15px 0; font-size: 1.4rem; color: var(--dark-text); }
         .card p { color: var(--light-text); line-height: 1.7; font-size: 0.95rem; }
 
-        /* --- الفوتر --- */
-        footer {
-            background: #0F172A; color: #94A3B8; padding: 40px 20px; text-align: center; margin-top: 50px;
-            border-top: 5px solid var(--primary-color);
-        }
-        footer strong { color: white; }
+        footer { background: #0F172A; color: #94A3B8; padding: 40px 20px; text-align: center; margin-top: 50px; border-top: 5px solid var(--primary-color); }
 
-        /* --- 📱 الموبايل --- */
         @media (max-width: 768px) {
             nav { flex-direction: column; gap: 20px; padding: 20px; }
             .nav-links { flex-direction: column; width: 100%; gap: 12px; }
-            .nav-link { display: none; } 
-            
-            .btn { width: 100%; } /* الأزرار تاخد العرض كامل */
-            
+            .btn { width: 100%; }
             h1 { font-size: 2.2rem; }
-            .hero-desc { font-size: 1rem; padding: 0 10px; }
-            .hero-btns { flex-direction: column; gap: 15px; width: 100%; }
         }
     </style>
 </head>
 <body>
-
     <nav>
-        <div class="logo">
-            <i class="fa-solid fa-code"></i>
-            Najat Ali
-        </div>
+        <div class="logo"><i class="fa-solid fa-code"></i> Najat Ali</div>
         <div class="nav-links">
-            <a href="#services" class="nav-link">خدماتنا</a>
-            
-            <a href="/admin" class="btn btn-outline" style="border-width: 1px;">
-                <i class="fa-solid fa-gauge"></i> لوحة التحكم
-            </a>
-
-            <a href="/contact" class="btn btn-primary">
-                <i class="fa-solid fa-paper-plane"></i> تواصل معنا
-            </a>
+            <a href="#services" class="btn btn-outline">خدماتنا</a>
+            <a href="dashboard.html" class="btn btn-outline"><i class="fa-solid fa-gauge"></i> لوحة التحكم</a>
+            <a href="contact.html" class="btn btn-main"><i class="fa-solid fa-paper-plane"></i> تواصل معنا</a>
         </div>
     </nav>
 
     <header>
         <h1>ابنِ مستقبلك الرقمي <br> <span>بأحدث التقنيات</span></h1>
-        <p class="hero-desc">
-            نحول الأفكار إلى واقع برمجي متكامل. نقدم حلولاً برمجية شاملة من التصميم وحتى الإطلاق.
-        </p>
+        <p class="hero-desc">نحول الأفكار إلى واقع برمجي متكامل. نقدم حلولاً برمجية شاملة من التصميم وحتى الإطلاق.</p>
         <div class="hero-btns">
-            <a href="/contact" class="btn btn-primary" style="padding: 15px 40px; font-size: 18px;">
-                ابدأ مشروعك الآن
-            </a>
-            <a href="#services" class="btn btn-outline" style="padding: 15px 40px; font-size: 18px;">
-                <i class="fa-solid fa-arrow-down"></i> استكشف خدماتنا
-            </a>
+            <a href="contact.html" class="btn btn-main" style="padding: 15px 40px; font-size: 18px;">ابدأ مشروعك الآن</a>
+            <a href="#services" class="btn btn-outline" style="padding: 15px 40px; font-size: 18px;"><i class="fa-solid fa-arrow-down"></i> استكشف خدماتنا</a>
         </div>
     </header>
 
     <section class="features" id="services">
         <div class="section-header">
             <h2>خدماتنا الشاملة</h2>
-            <p>حلول تقنية مصممة خصيصاً لتنمية أعمالك</p>
+            <p style="color: var(--light-text); font-size: 1.1rem;">حلول تقنية مصممة خصيصاً لتنمية أعمالك</p>
         </div>
-
         <div class="grid">
-            <div class="card">
-                <div class="icon-circle"><i class="fa-solid fa-rocket"></i></div>
-                <h3>سرعة وأداء عالي</h3>
-                <p>تطوير مواقع فائقة السرعة باستخدام Node.js لضمان بقاء الزوار في موقعك.</p>
-            </div>
-            
-            <div class="card">
-                <div class="icon-circle"><i class="fa-solid fa-shield-halved"></i></div>
-                <h3>حماية وأمان</h3>
-                <p>نطبق أعلى معايير الأمان لحماية بياناتك وقواعد البيانات من أي تهديدات.</p>
-            </div>
-            
-            <div class="card">
-                <div class="icon-circle"><i class="fa-solid fa-mobile-screen"></i></div>
-                <h3>تصميم متجاوب</h3>
-                <p>موقعك سيعمل بكفاءة وسلاسة على جميع الأجهزة (موبايل، تابلت، كمبيوتر).</p>
-            </div>
-
-            <div class="card">
-                <div class="icon-circle"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-                <h3>تحسين محركات البحث (SEO)</h3>
-                <p>نبني الموقع بهيكلية تساعدك في الظهور في النتائج الأولى على جوجل.</p>
-            </div>
-
-            <div class="card">
-                <div class="icon-circle"><i class="fa-solid fa-cart-shopping"></i></div>
-                <h3>متاجر إلكترونية</h3>
-                <p>تصميم متاجر متكاملة مع بوابات دفع إلكتروني ولوحات تحكم لإدارة المنتجات.</p>
-            </div>
-
-            <div class="card">
-                <div class="icon-circle"><i class="fa-solid fa-network-wired"></i></div>
-                <h3>ربط الأنظمة (API)</h3>
-                <p>بناء وربط واجهات برمجة التطبيقات (APIs) لربط موقعك بتطبيقات الموبايل.</p>
-            </div>
+            <div class="card"><div class="icon-circle"><i class="fa-solid fa-rocket"></i></div><h3>سرعة وأداء عالي</h3><p>تطوير مواقع فائقة السرعة باستخدام Node.js.</p></div>
+            <div class="card"><div class="icon-circle"><i class="fa-solid fa-shield-halved"></i></div><h3>حماية وأمان</h3><p>أعلى معايير الأمان لحماية بياناتك.</p></div>
+            <div class="card"><div class="icon-circle"><i class="fa-solid fa-mobile-screen"></i></div><h3>تصميم متجاوب</h3><p>يعمل بكفاءة على جميع الأجهزة.</p></div>
+            <div class="card"><div class="icon-circle"><i class="fa-solid fa-magnifying-glass-chart"></i></div><h3>تحسين محركات البحث (SEO)</h3><p>نهيئ موقعك للظهور في الصفحات الأولى.</p></div>
+            <div class="card"><div class="icon-circle"><i class="fa-solid fa-cart-shopping"></i></div><h3>متاجر إلكترونية</h3><p>متاجر متكاملة مع بوابات دفع.</p></div>
+            <div class="card"><div class="icon-circle"><i class="fa-solid fa-network-wired"></i></div><h3>ربط الأنظمة (API)</h3><p>بناء واجهات برمجية لربط التطبيقات.</p></div>
         </div>
     </section>
 
     <footer>
         <p>&copy; 2026 جميع الحقوق محفوظة لـ <strong>Najat Ali</strong></p>
     </footer>
-
 </body>
 </html>
