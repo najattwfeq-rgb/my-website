@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | Najat Ali</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+         :root {
+            --primary-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            --primary-color: #2563EB;
+            --bg-color: #F8FAFC;
+        }
+
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg-color); color: #1E293B; margin: 0; }
+
+        /* Navbar Same Design */
+        nav {
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 100;
+        }
+        .logo { 
+            font-weight: 800; font-size: 22px; background: var(--primary-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 10px; 
+        }
+        .logo i { -webkit-text-fill-color: initial; color: var(--primary-color); }
+        .btn-home { background: #1E293B; color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 14px; }
+
+        /* Layout */
+        .main-content { 
+            max-width: 1000px; margin: 40px auto; padding: 0 20px; display: flex; flex-direction: column; gap: 30px;
+        }
+        
+        /* Modern Card */
+        .dashboard-card {
+            background: white; padding: 30px; border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03); border: 1px solid #F1F5F9;
+        }
+
+        h2 { 
+            text-align: center; margin-bottom: 30px; font-weight: 800; 
+            color: #1E293B; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        
+        /* Inputs & Buttons */
+        input {
+            width: 100%; padding: 14px; margin-bottom: 15px; border: 2px solid #E2E8F0; border-radius: 12px;
+            font-family: inherit; outline: none; box-sizing: border-box; transition: 0.3s; background: #F8FAFC;
+        }
+        input:focus { border-color: var(--primary-color); background: white; }
+
+        .btn-main {
+            width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; 
+            background: var(--primary-gradient); color: white; transition: 0.3s; font-size: 16px;
+        }
+        .btn-main:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* Tables & Lists */
+        .product-list { list-style: none; padding: 0; margin-top: 30px; }
+        .product-card {
+            background: #F8FAFC; padding: 15px; margin-bottom: 10px; border-radius: 12px;
+            display: flex; justify-content: space-between; align-items: center; border: 1px solid #E2E8F0;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; min-width: 600px; }
+        th { background: #F1F5F9; padding: 15px; color: var(--primary-color); font-weight: 800; text-align: right; }
+        td { padding: 15px; border-bottom: 1px solid #E2E8F0; vertical-align: middle; }
+        .table-responsive { overflow-x: auto; }
+
+        .btn-icon { width: 32px; height: 32px; border-radius: 8px; border: none; cursor: pointer; display: flex; justify-content: center; align-items: center; margin-left: 5px; }
+        .delete { background: #FEF2F2; color: #EF4444; }
+        .edit { background: #FFF7ED; color: #F59E0B; }
+
+        /* Footer */
+        footer { text-align: center; padding: 30px; color: #94A3B8; font-size: 14px; }
+
+        @media (max-width: 768px) {
+            .product-card { flex-direction: column; text-align: center; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><i class="fa-solid fa-gauge-high"></i> لوحة التحكم</div>
+        <a href="/" class="btn-home"><i class="fa-solid fa-house"></i> الموقع</a>
+    </nav>
+
+    <div class="main-content">
+        
+        <div class="dashboard-card">
+            <h2><i class="fa-solid fa-box-open"></i> إدارة المنتجات</h2>
+            <input type="text" id="name" placeholder="اسم المنتج">
+            <input type="number" id="price" placeholder="السعر">
+            <input type="text" id="category" placeholder="القسم">
+            <button onclick="handleForm()" id="mainBtn" class="btn-main"><i class="fa-solid fa-plus"></i> حفظ المنتج</button>
+            <ul id="productsList" class="product-list"></ul>
+        </div>
+
+        <div class="dashboard-card">
+            <h2><i class="fa-solid fa-comments"></i> رسائل العملاء</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr><th>الاسم</th><th>الرسالة</th><th>التاريخ</th><th>حذف</th></tr>
+                    </thead>
+                    <tbody id="messagesTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>&copy; 2026 Najat Ali Dashboard</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const API_URL = '/api/users';
+        const MSG_API_URL = '/api/contact';
+        let currentId = null;
+
+        async function fetchProducts() {
+            const res = await fetch(API_URL);
+            const products = await res.json();
+            const list = document.getElementById('productsList');
+            list.innerHTML = products.map(p => `
+                <li class="product-card">
+                    <div><strong>${p.name}</strong> (${p.price} ج.م) <br><small>${p.category}</small></div>
+                    <div style="display:flex">
+                        <button onclick="editProduct('${p._id}', '${p.name}', '${p.price}', '${p.category}')" class="btn-icon edit"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteProduct('${p._id}')" class="btn-icon delete"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </li>`).join('');
+        }
+
+        async function handleForm() {
+            const name = document.getElementById('name').value;
+            const price = document.getElementById('price').value;
+            const category = document.getElementById('category').value;
+            if(!name) return;
+            const method = currentId ? 'PUT' : 'POST';
+            const url = currentId ? `${API_URL}/${currentId}` : API_URL;
+            await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, price, category }) });
+            resetForm(); fetchProducts();
+        }
+
+        function editProduct(id, name, price, category) {
+            currentId = id; document.getElementById('name').value = name; document.getElementById('price').value = price; document.getElementById('category').value = category;
+            document.getElementById('mainBtn').innerHTML = '<i class="fa-solid fa-save"></i> تعديل';
+        }
+
+        async function deleteProduct(id) {
+            if(confirm('حذف المنتج؟')) { await fetch(`${API_URL}/${id}`, { method: 'DELETE' }); fetchProducts(); }
+        }
+
+        function resetForm() {
+            currentId = null; document.getElementById('name').value = ''; document.getElementById('price').value = ''; document.getElementById('category').value = '';
+            document.getElementById('mainBtn').innerHTML = '<i class="fa-solid fa-plus"></i> حفظ المنتج';
+        }
+
+        async function fetchMessages() {
+            const res = await fetch(`${MSG_API_URL}/all`);
+            const msgs = await res.json();
+            const body = document.getElementById('messagesTableBody');
+            if(msgs.length === 0) { body.innerHTML = '<tr><td colspan="4" style="text-align:center">لا توجد رسائل</td></tr>'; return; }
+            body.innerHTML = msgs.map(m => `
+                <tr>
+                    <td><strong>${m.name}</strong><br><small style="color:#666">${m.email}</small></td>
+                    <td>${m.message}</td>
+                    <td>${new Date(m.date).toLocaleDateString('ar-EG')}</td>
+                    <td><button onclick="deleteMessage('${m._id}')" class="btn-icon delete"><i class="fa-solid fa-trash"></i></button></td>
+                </tr>`).join('');
+        }
+
+        async function deleteMessage(id) {
+            Swal.fire({ title: 'حذف؟', icon: 'warning', showCancelButton: true, confirmButtonText: 'نعم', cancelButtonText: 'لا' }).then(async (r) => {
+                if(r.isConfirmed) { await fetch(`${MSG_API_URL}/${id}`, { method: 'DELETE' }); fetchMessages(); Swal.fire('تم!','','success'); }
+            });
+        }
+
+        fetchProducts(); fetchMessages();
+    </script>
+</body>
+</html>
